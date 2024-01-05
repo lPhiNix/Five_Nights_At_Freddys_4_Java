@@ -1,4 +1,4 @@
-package fnaf4;
+package fnaf4.functions;
 
 import java.util.Timer;
 import java.util.TimerTask;

@@ -1,36 +1,46 @@
 package fnaf4;
 
+import fnaf4.functions.Night;
+import fnaf4.resources.MenuAnimations;
+import fnaf4.resources.MenuResources;
 
 import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
+        Scanner evan = new Scanner(System.in);
+        String menuConsole = "-1";
+        int menuAnimationLimit = 0;
+        do {
+            switch (Night.getGameProgress()) {
+                case 0:
+                    if (menuAnimationLimit == 0) {
+                        MenuAnimations.animationMenu0();
+                    }
+                    else {
+                        System.out.print(MenuResources.resourceMenu0(3));
+                    }
+                    menuAnimationLimit++;
+                    System.out.print("Console: ");
+                    menuConsole = evan.next();
+                    switch (menuConsole) {
+                        case "1":
+                            //Reset
+                            break;
+                        case "2":
+                            //1st MiniGame
+                            break;
+                        case "5":
+                            //How to play
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
 
-        Scanner xd = new Scanner(System.in);
-        PlushTrap.setBonus();
-        PlushTrap.addAggressiveness();
-        PlushTrap plushTrap = new PlushTrap(1);
-        plushTrap.plushTrapCycle();
-        PlushTrap.activatePlushTrap();
-
-        Timer timerCycle = new Timer();
-        TimerTask timerTask = new TimerTask() {
-            public void run() {
-                System.out.print("\b\b\b\b\b\b\b\b\b\b\b\b" +
-                        "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b" +
-                        "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
-                System.out.print("\033[32mSegundos: "
-                        + plushTrap.getSeconds() + " | Position: "
-                        + PlushTrap.getPosition() + " | Agg: " + PlushTrap.getAggressiveness() +
-                        " | Bonus: " + PlushTrap.getBonus() + "\033[37m");
-                if (PlushTrap.isDeathTrap() || PlushTrap.isCompleteTrap() || PlushTrap.isTimeIsOut()) {
-                    timerCycle.cancel();
-                }
             }
-        };
-        timerCycle.scheduleAtFixedRate(timerTask, 10, 10);
-
+        }
+        while (!menuConsole.equalsIgnoreCase("Exit"));
+        menuAnimationLimit = 0;
     }
 }
